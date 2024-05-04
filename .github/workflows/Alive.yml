@@ -1,16 +1,42 @@
-name: Keep Codespace Alive
+name: Start Minecraft Server
 
 on:
+  push:
+    branches:
+      - main
   schedule:
-    - cron: '*/6 * * * *'
-  workflow_dispatch:
+    - cron: '0 */6 * * *' # Run every 6 hours
 
 jobs:
-  keep-alive:
+  start-server:
     runs-on: self-hosted
 
+    env:
+      NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+
     steps:
-      - name: Keep Codespace Alive
-        run: echo "Keeping Codespace alive for 6 minutes"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        run: |
+          sudo apt-get install openjdk-11-jdk -y
+
+      - name: Install Screen
+        run: sudo apt-get install screen -y
+
+      - name: Install Ngrok
+        run: |
+          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+
+      - name: Start Ngrok and Minecraft Server
+        run: |
+          screen -dmS ngrok ./ngrok authtoken $NGROK_AUTH_TOKEN
+          sleep 1
+          screen -S ngrok -X stuff './ngrok tcp 25565\n'
+          sleep 10
+          java -Xmx2G -jar server.jar nogui
+
 
 

@@ -1,14 +1,16 @@
-name: Keep Minecraft Server Alive
+name: Keep Codespace Alive
 
 on:
   schedule:
-    - cron: '0 */12 * * *' # Run every 12 hours
+    - cron: '*/6 * * * *'
   workflow_dispatch:
 
 jobs:
   keep-alive:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Keep Codespace Alive
-        run: echo "Keeping Codespace alive for 12 hours"
+        run: echo "Keeping Codespace alive for 6 minutes"
+
+

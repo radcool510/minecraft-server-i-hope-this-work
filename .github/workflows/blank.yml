@@ -24,6 +24,9 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
 
+      - name: Install Screen
+        run: sudo apt-get install screen -y
+
       - name: Install Ngrok
         run: |
           wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
@@ -31,8 +34,9 @@ jobs:
 
       - name: Start Ngrok and Minecraft Server
         run: |
-          nohup ./ngrok authtoken $NGROK_AUTH_TOKEN &
+          screen -dmS ngrok ./ngrok authtoken $NGROK_AUTH_TOKEN
           sleep 1
-          nohup ./ngrok tcp 25565 &
+          screen -S ngrok -X stuff './ngrok tcp 25565\n'
           sleep 10
-          java -Xmx2G -jar server.jar nogui
+          java -Xmx7G -jar server.jar nogui
+

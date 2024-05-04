@@ -33,10 +33,7 @@ jobs:
       - name: Start Ngrok and Minecraft Server
         run: |
           screen -dmS ngrok ./ngrok authtoken $NGROK_AUTH_TOKEN
-          sleep 1
+          sleep 5
           screen -S ngrok -X stuff './ngrok tcp 25565\n'
-          sleep 10
+          sleep 15 # Adjust the delay as needed
           java -Xmx2G -jar server.jar nogui
-
-
-

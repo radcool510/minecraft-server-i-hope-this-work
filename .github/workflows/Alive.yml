@@ -34,6 +34,6 @@ jobs:
         run: |
           screen -dmS ngrok ./ngrok authtoken $NGROK_AUTH_TOKEN
           sleep 5
-          screen -S ngrok -X stuff './ngrok tcp 25565\n'
-          sleep 15 # Adjust the delay as needed
+          ./ngrok tcp 25565 &
+          sleep 10
           java -Xmx2G -jar server.jar nogui

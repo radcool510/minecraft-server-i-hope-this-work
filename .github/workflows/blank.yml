@@ -37,9 +37,9 @@ jobs:
 
       - name: Download Plugins
         run: |
-          wget -O plugins/DiscordSRV.jar <URL_TO_DISCORDSRV_JAR>
-          wget -O plugins/ClearLagg.jar <URL_TO_CLEARLAGG_JAR>
-          wget -O plugins/SimpleTPA.jar <URL_TO_SIMPLETPA_JAR>
+          wget -O plugins/DiscordSRV.jar https://cdn.modrinth.com/data/UmLGoGij/versions/mr2CijyC/DiscordSRV-Build-1.27.0.jar
+          wget -O plugins/ClearLag.jar https://dev.bukkit.org/projects/clearlagg/files/latest
+          wget -O plugins/SimpleTPA.jar https://dev.bukkit.org/projects/credible-tpa/files/915805/download
 
       - name: Modify EULA
         run: |

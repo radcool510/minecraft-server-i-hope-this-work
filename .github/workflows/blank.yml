@@ -32,9 +32,11 @@ jobs:
           wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
           unzip ngrok-stable-linux-amd64.zip
 
+      - name: Create Plugins Directory
+        run: mkdir -p plugins
+
       - name: Download Plugins
         run: |
-          mkdir plugins
           wget -O plugins/DiscordSRV.jar <URL_TO_DISCORDSRV_JAR>
           wget -O plugins/ClearLagg.jar <URL_TO_CLEARLAGG_JAR>
           wget -O plugins/SimpleTPA.jar <URL_TO_SIMPLETPA_JAR>
@@ -54,5 +56,3 @@ jobs:
           screen -S ngrok -X stuff './ngrok tcp 25565\n'
           sleep 10
           java -Xmx7G -jar server.jar nogui
-
-

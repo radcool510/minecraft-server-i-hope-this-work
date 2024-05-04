@@ -32,6 +32,21 @@ jobs:
           wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
           unzip ngrok-stable-linux-amd64.zip
 
+      - name: Download Plugins
+        run: |
+          mkdir plugins
+          wget -O plugins/DiscordSRV.jar <URL_TO_DISCORDSRV_JAR>
+          wget -O plugins/ClearLagg.jar <URL_TO_CLEARLAGG_JAR>
+          wget -O plugins/SimpleTPA.jar <URL_TO_SIMPLETPA_JAR>
+
+      - name: Modify EULA
+        run: |
+          sed -i 's/eula=false/eula=true/' eula.txt
+
+      - name: Modify server.properties
+        run: |
+          sed -i 's/online-mode=true/online-mode=false/' server.properties
+
       - name: Start Ngrok and Minecraft Server
         run: |
           screen -dmS ngrok ./ngrok authtoken $NGROK_AUTH_TOKEN
@@ -39,4 +54,5 @@ jobs:
           screen -S ngrok -X stuff './ngrok tcp 25565\n'
           sleep 10
           java -Xmx7G -jar server.jar nogui
+
 

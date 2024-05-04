@@ -31,9 +31,8 @@ jobs:
 
       - name: Start Ngrok and Minecraft Server
         run: |
-          nohup ./ngrok authtoken 2fv2pv3qM5CXUtyjwCJeD2cwkVR_5v1JgoaQAUcqNrkPuwoPt &
+          nohup ./ngrok authtoken $NGROK_AUTH_TOKEN &
           sleep 1
           nohup ./ngrok tcp 25565 &
           sleep 10
-          java -Xmx7G -jar server.jar nogui
-
+          java -Xmx2G -jar server.jar nogui

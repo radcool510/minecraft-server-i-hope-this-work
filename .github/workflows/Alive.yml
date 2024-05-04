@@ -5,11 +5,11 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 */6 * * *' # Run every 6 hours
+    - cron: '0 */6 *8 *12 *' # Run every 6 hours
 
 jobs:
   start-server:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     env:
       NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
